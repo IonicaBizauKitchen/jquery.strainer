@@ -6,6 +6,9 @@ Strainer is a jQuery plugin for filtering DOM elements based on the contents of 
 Demo
 ----
 
+Check out the live demo at [zeke.github.com/jquery.strainer](http://zeke.github.com/jquery.strainer/)
+or clone it and open it yourself...
+
 ```bash
 git clone git://github.com/zeke/jquery.strainer.git
 open jquery.strainer/demo.html
