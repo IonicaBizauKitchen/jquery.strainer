@@ -19,6 +19,7 @@ jQuery.fn.strainer = (options) ->
   # minChars
   # Minimum characters required before filtering is performed
   this.data('minChars', options.minChars or 1)
+  console.log this.data('minChars')
 
   # Show or hide all the things, depending on mode
   if this.data('mode') is 'reductive'

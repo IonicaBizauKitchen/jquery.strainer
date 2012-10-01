@@ -1,13 +1,30 @@
 Strainer
 ========
 
-Strainer is a jQuery plugin that lets your filter DOM elements based on the contents of a text input.
+Strainer is a jQuery plugin for filtering DOM elements based on the contents of a text input.
 
 
 Installation
 ------------
 
-    curl -O  
+```bash
+curl -O https://raw.github.com/zeke/jquery.strainer/master/jquery.strainer.js 
+```
+
+Demo
+----
+
+```bash
+git clone git://github.com/zeke/jquery.strainer.git
+open jquery.strainer/demo.html
+```
+
+How It Works
+
+Strainer is case insensitive and supports multi-word searches.
+
+- `cat` matches `Catherine`, `wildcat`, and `scattergories`
+- `mi fa` matches `Mia Farrow` and `fancy mingling`, but not `minimalism`
     
 Usage
 -----
@@ -49,8 +66,10 @@ Development
 -----------
 
 Use coffee to watch and compile...
-      
-      coffee -wc *.coffee
+
+```bash
+coffee -wc *.coffee
+```
 
 License
 -------
