@@ -15,10 +15,15 @@
 
   jQuery.fn.strainer = function(options) {
     var _this = this;
+    if (this.length < 1) {
+      return;
+    }
+    if ($(options.selector).length < 1) {
+      return;
+    }
     this.data('selector', $(options.selector));
     this.data('mode', options.mode || 'reductive');
     this.data('minChars', options.minChars || 1);
-    console.log(this.data('minChars'));
     if (this.data('mode') === 'reductive') {
       this.data('selector').addClass('match');
     } else {

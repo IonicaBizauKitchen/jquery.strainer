@@ -7,6 +7,10 @@ String::looselyContains = (substring) ->
 
 jQuery.fn.strainer = (options) ->
   
+  # Bail if the strainer or selector doesn't exist
+  return if this.length < 1
+  return if $(options.selector).length < 1
+  
   # selector
   # A CSS selector string like 'ul.things > li'
   this.data('selector', $(options.selector))
@@ -19,7 +23,6 @@ jQuery.fn.strainer = (options) ->
   # minChars
   # Minimum characters required before filtering is performed
   this.data('minChars', options.minChars or 1)
-  console.log this.data('minChars')
 
   # Show or hide all the things, depending on mode
   if this.data('mode') is 'reductive'
