@@ -20,20 +20,21 @@ open jquery.strainer/demo.html
 ```
 
 How It Works
+------------
 
-Strainer is case insensitive and supports multi-word searches.
+As you enter text into a strainer input, a `match` class is applied to all elements that 
+match the filter string, and removed from all elements that don't. It's up to you to use
+CSS to determine what a match looks like.
 
-- `cat` matches `Catherine`, `wildcat`, and `scattergories`
-- `mi fa` matches `Mia Farrow` and `fancy mingling`, but not `minimalism`
+Strainer is case insensitive and supports multi-word searches. 
+`cat` matches `Catherine`, `wildcat`, and `scattergories`.
+`mi fa` matches `Mia Farrow` and `fancy mingling`, but not `minimalism`.
     
 Usage
 -----
 
-As you enter text into a strainer input, a 'match' class is applied to all elements that 
-match the filter string, and removed from all elements that don't. It's up to you to use
-CSS to determine what a match looks like.
-
 ```css
+  /* CSS */
   ul.things > li { display: none; }
   ul.things > li.match { display: block; }
 ```
