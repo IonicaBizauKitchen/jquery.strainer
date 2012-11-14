@@ -5,7 +5,7 @@ String::looselyContains = (substring) ->
     return false unless @search(new RegExp(word, "i")) > -1
   true
 
-jQuery.fn.strainer = (options) ->
+jQuery.fn.strainer = (options={}) ->
   
   # Bail if the strainer or selector doesn't exist
   return if this.length < 1
@@ -14,15 +14,19 @@ jQuery.fn.strainer = (options) ->
   # selector
   # A CSS selector string like 'ul.things > li'
   this.data('selector', $(options.selector))
-
-  # mode
-  # reductive: everything shows up until you start filtering
-  # additive: nothing shows up until you start filtering
-  this.data('mode', options.mode or 'reductive')
   
   # minChars
   # Minimum characters required before filtering is performed
   this.data('minChars', options.minChars or 1)
+  
+  # onStrain
+  # Returns a collection of matching elements after each straining
+  this.data('onStrain', options.onStrain)
+  
+  # mode
+  # reductive: everything shows up until you start filtering
+  # additive: nothing shows up until you start filtering
+  this.data('mode', options.mode or 'reductive')
 
   # Show or hide all the things, depending on mode
   if this.data('mode') is 'reductive'
@@ -46,3 +50,7 @@ jQuery.fn.strainer = (options) ->
         $(this).addClass('match')
       else
         $(this).removeClass('match')
+
+    # Pass collection of matching elements to callback
+    if this.data('onStrain')?
+      this.data('onStrain')(this.data('selector').filter('.match'))

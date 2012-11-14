@@ -15,6 +15,9 @@
 
   jQuery.fn.strainer = function(options) {
     var _this = this;
+    if (options == null) {
+      options = {};
+    }
     if (this.length < 1) {
       return;
     }
@@ -22,8 +25,9 @@
       return;
     }
     this.data('selector', $(options.selector));
-    this.data('mode', options.mode || 'reductive');
     this.data('minChars', options.minChars || 1);
+    this.data('onStrain', options.onStrain);
+    this.data('mode', options.mode || 'reductive');
     if (this.data('mode') === 'reductive') {
       this.data('selector').addClass('match');
     } else {
@@ -40,13 +44,16 @@
         }
         return;
       }
-      return _this.data('selector').each(function() {
+      _this.data('selector').each(function() {
         if ($(this).text().looselyContains(q)) {
           return $(this).addClass('match');
         } else {
           return $(this).removeClass('match');
         }
       });
+      if (_this.data('onStrain') != null) {
+        return _this.data('onStrain')(_this.data('selector').filter('.match'));
+      }
     });
   };
 

@@ -50,7 +50,10 @@ $(function() {
   $('input.strainer').strainer({
     selector: "ul.things > li",
     mode: "additive",
-    minChars: 3
+    minChars: 3,
+    onStrain: function(matches) {
+      console.log(matches.length);
+    }
   });
   
 });
@@ -61,6 +64,7 @@ $(function() {
 - `selector`: The only required option; a CSS selector string like `'ul.things > li'`
 - `mode`: `reductive` (default) shows everything until you start filtering. `additive` shows nothing until you start filtering.
 - `minChars`: The minimum number of characters required before filtering is performed. Default: `1`
+- `onStrain`: An optional callback function to which a jQuery collection of matched elements will be passed every time filtering occurs.
 
 Development
 -----------
