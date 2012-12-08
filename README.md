@@ -66,6 +66,26 @@ $(function() {
 - `minChars`: The minimum number of characters required before filtering is performed. Default: `1`
 - `onStrain`: An optional callback function to which a jQuery collection of matched elements will be passed every time filtering occurs.
 
+Key-Value Matching
+------------------
+
+Strainer allows you to search against HTML5 data attributes using a 
+`key:value` search syntax.
+
+```html
+<li data-emotion="happy">I feel good.</li>
+<li data-emotion="happy">I feel great.</li>
+<li data-emotion="elated">I feel wonderful.</li>
+```
+
+The following search patterns are supported:
+
+```
+emotion:happy good
+emotion:sad
+emotion:happy,sad
+```
+
 Development
 -----------
 

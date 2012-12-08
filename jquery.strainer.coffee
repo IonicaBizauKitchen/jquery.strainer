@@ -1,9 +1,21 @@
-# Split substring on space, return true if all resulting substrings are present
-String::looselyContains = (substring) ->
-  words = substring.split(' ')
-  for word in words
-    return false unless @search(new RegExp(word, "i")) > -1
-  true
+# Split substring into words
+String::looselyContains = (substring, delimiter=" ", strict=true) ->
+
+  # Don't allow blanks words from untrimmed queries like "foo," or " bar"
+  words = []
+  for word in substring.split(delimiter)
+    words.push word unless word is ""
+  
+  if strict
+    # return true if ALL substrings are present
+    for word in words
+      return false unless @search(new RegExp(word, "i")) > -1
+    return true
+  else
+    # return true if ANY substrings are present
+    for word in words
+      return true if @search(new RegExp(word, "i")) > -1
+    return false
 
 jQuery.fn.strainer = (options={}) ->
   
@@ -46,10 +58,20 @@ jQuery.fn.strainer = (options={}) ->
       return
     
     this.data('selector').each ->
-      if $(this).text().looselyContains(q)
-        $(this).addClass('match')
-      else
-        $(this).removeClass('match')
+      words = q.split(' ')
+      matching_words = []
+      
+      for word in words        
+        # look for a key:value pair
+        match = word.match(/(\w+):([\w,]+)/)
+        
+        # allow comma-delimited k:v values
+        if match && $(this).data(match[1]) && $(this).data(match[1]).looselyContains(match[2], ",", false)
+          matching_words.push word
+        else if $(this).text().looselyContains(word)
+          matching_words.push word
+          
+      $(this).toggleClass 'match', (matching_words.length is words.length)
 
     # Pass collection of matching elements to callback
     if this.data('onStrain')?
