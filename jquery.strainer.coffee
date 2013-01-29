@@ -55,23 +55,24 @@ jQuery.fn.strainer = (options={}) ->
         this.data('selector').addClass('match') # Show all
       else
         this.data('selector').removeClass('match') # Hide all
-      return
+
+    else
     
-    this.data('selector').each ->
-      words = q.split(' ')
-      matching_words = []
+      this.data('selector').each ->
+        words = q.split(' ')
+        matching_words = []
       
-      for word in words        
-        # look for a key:value pair
-        match = word.match(/(\w+):([\w,]+)/)
+        for word in words
+          # look for a key:value pair
+          match = word.match(/(\w+):([\w,]+)/)
         
-        # allow comma-delimited k:v values
-        if match && $(this).data(match[1]) && $(this).data(match[1]).looselyContains(match[2], ",", false)
-          matching_words.push word
-        else if $(this).text().looselyContains(word)
-          matching_words.push word
+          # allow comma-delimited k:v values
+          if match && $(this).data(match[1]) && $(this).data(match[1]).looselyContains(match[2], ",", false)
+            matching_words.push word
+          else if $(this).text().looselyContains(word)
+            matching_words.push word
           
-      $(this).toggleClass 'match', (matching_words.length is words.length)
+        $(this).toggleClass 'match', (matching_words.length is words.length)
 
     # Pass collection of matching elements to callback
     if this.data('onStrain')?
